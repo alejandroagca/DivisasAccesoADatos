@@ -17,42 +17,41 @@ public class DivisasMainActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_divisas_main);
+        rbtDaE = (RadioButton) findViewById(R.id.radioButtonDaE);
         etDolares = (EditText) findViewById(R.id.editTextDolares);
         etEuros = (EditText) findViewById(R.id.editTextEuros);
         convertir = (Button) findViewById(R.id.buttonConvertir);
         convertir.setOnClickListener(this);
     }
 
-    public String Convertir()
+    public String Convertir(String cantidad)
     {
         double calculo;
         double cambioAEuros = 0.846345902;
         double cambioADolares = 1.18155;
-        rbtDaE = (RadioButton) findViewById(R.id.radioButtonDaE);
         if (rbtDaE.isChecked())
         {
-            calculo = (Double.parseDouble(etDolares.getText().toString())*cambioAEuros);
+            calculo = (Double.parseDouble(cantidad)*cambioAEuros);
         }
         else
         {
-            calculo =(Double.parseDouble(etEuros.getText().toString())*cambioADolares);
+            calculo =(Double.parseDouble(cantidad)*cambioADolares);
         }
 
         return String.format("%.2f",calculo);
     }
 
-    @Override
     public void onClick(View view)
     {
         if (view == convertir)
         {
             if (rbtDaE.isChecked())
             {
-                etEuros.setText(Convertir());
+                etEuros.setText(Convertir(etDolares.getText().toString()));
             }
             else
             {
-                etDolares.setText(Convertir());
+                etDolares.setText(Convertir(etEuros.getText().toString()));
             }
         }
 
